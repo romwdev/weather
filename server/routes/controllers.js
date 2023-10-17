@@ -2,10 +2,10 @@ const models = require('./models');
 const axios = require('axios').default;
 
 module.exports = {
-    getAllUsers: async (req, res) => {
+    getUsers: async (req, res) => {
         try {
             const data = await new Promise((resolve, reject) => {
-                models.getAllUsers((err, users) => {
+                models.getUsers((err, users) => {
                     if (err) {
                         console.error(err);
                         reject(err);
@@ -43,5 +43,14 @@ module.exports = {
             console.error(error);
             res.status(500).json({ error: 'An error occurred' });
         }
+    },
+
+    postUser: (req, res) => {
+        models.postUser(req.body, (err, data) => {
+            if (err) {
+                console.error(err);
+            }
+            res.status(201).json(data);
+        });
     }
 }
